@@ -99,16 +99,16 @@ Or compile source after applying
 
 -   Add path to `bin` to `PATH`.
 -   Copy or link xmonad.hs to `~/.xmonad/xmonad.hs`.
--   Merge `_Xresources` to `~/.Xresources`.
+-   Merge dzen2 default theme in `_Xresources` to your `~/.Xresources`.
 
+For `startx` and `slim`, edit and copy/link files starting with underscore to home directory:
 
-For `startx` and `slim`:
+    _xinitrc -> ~/.xinitrc
+    _xsession -> ~/.xsession
+    _xsessionrc -> ~/.xsessionrc
 
--   Edit and copy files starting with underscore to home directory:
-
-        _xinitrc -> ~/.xinitrc
-        _xsession -> ~/.xsession
-        _xsessionrc -> ~/.xsessionrc
+-   See `_xsessionrc` about how to setup multiple displays using `xrandr`.
+-   Add auto start applications in `bin/xmonad.autostart`
 
 TODO: How to start session in other session manager? I'm not sure whether
 `~/.xsession` really works for xdm/gdm/kdm.

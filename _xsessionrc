@@ -19,6 +19,9 @@ done
 xsetroot -cursor_name left_ptr
 [ -f /usr/bin/nitrogen ] && nitrogen --restore
 
+# to setup multiple displays
+# xrandr --output DVI-0 --mode 1920x1080 --output DVI-1 --mode 1920x1080 --right-of DVI-0
+
 export OOO_FORCE_DESKTOP=gnome
 export JAVA_FONTS=/usr/share/fonts/TTF
 export GDFONTPATH=/usr/share/fonts/TTF
