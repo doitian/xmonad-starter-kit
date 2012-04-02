@@ -54,21 +54,20 @@ user_content() {
   date +"^ca(1,gsimplecal)%a %b %d, %H:%M^ca()"
 }
 
-typeset -i LAST_TIME=0
+LAST_TIME=0
 update_user_content () {
-  local -i now=$(date +"%s")
-  if ((now - LAST_TIME > 60)); then
+  local now=$(date +"%s")
+  if ((now - LAST_TIME >= 60)); then
     USER_CONTENT=$(user_content)
-    LAST_TIME=now
+    LAST_TIME=$now
   fi
 }
 
-update_user_content
+[ -z "$DEBUG" ] && exec > >(dzen2 -fg "$FG" -bg "$BG" -ta l -e 'button3=')
 while true; do
+  update_user_content
   refresh
   if zselect -t 6000 -A fd -r 0; then
     parse_log
-  else
-    update_user_content
   fi
-done > >(dzen2 -fg "$FG" -bg "$BG" -ta l -e 'button3=')
+done
