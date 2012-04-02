@@ -342,7 +342,7 @@ myKeys =  \conf -> mkKeymap conf $
 dmenuXinerama :: [String] -> X String
 dmenuXinerama opts = do
     io $ runProcessWithInput "dmenu" [ "-fn"
-                                     , "Sans-10" -- or (myFont ++ "-10")
+                                     , (myFont ++ "-10")
                                      , "-nb"
                                      , "#1e2320" 
                                      , "-nf" 
@@ -498,7 +498,7 @@ exitHook = do
 --
 
 main = do
-  dzen <- spawnPipe "xmonad.panel"
+  dzen <- spawnPipe $ "xmonad.panel -fn '" ++ myFont ++ "-10'"
   xmonad $ ewmh $ withUrgencyHook LibNotifyUrgencyHook defaultConfig
              { terminal           = myTerminal
              , focusFollowsMouse  = myFocusFollowsMouse
