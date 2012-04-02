@@ -53,6 +53,10 @@ Cabal install packages into `~/.cabal`, add `~/.cabal/bin` to `PATH`.
 
 ### Panel ###
 
+#### zsh ####
+
+Install latest `zsh` (mine is 4.3.17). Panel is written in zsh using zselect.
+
 #### dzen2 ####
 
 Must enable xft, xpm and xinerama. in Arch Linux, just install from `aur`:
@@ -70,10 +74,6 @@ Version 4.5 with xft patch. Arch Linuxer can install `dmenu-xft`.
 
 Or compile source after applying
 [dmenu-4.5-xft.diff](http://darkstar.ist.utl.pt/slackware/addon/slacky/slackware64-13.37/desktop/dmenu-xft/4.5/src/dmenu-4.5-xft.diff)
-
-#### ruby ####
-
-Install `ruby` and gems `eventmachine`, `popen4`.
 
 #### optional ####
 

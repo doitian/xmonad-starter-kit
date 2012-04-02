@@ -1,0 +1,3 @@
+#!/bin/sh
+#xrandr --output DFP1 --mode 1920x1080 --rotate left --output DFP2 --mode 1920x1080 --rotate right --right-of DFP1
+xrandr --output DVI-0 --mode 1920x1080 --output DVI-1 --mode 1920x1080 --right-of DVI-0

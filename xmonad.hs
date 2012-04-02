@@ -151,7 +151,7 @@ myDzenPP h = defaultPP
                                     return $ Just ("\0000" ++ concat (intersperse "\0000" tags))
 
 dzenSwitchWs :: String -> String
-dzenSwitchWs s = "^ca(1,switch-workspace.rb " ++ (show s) ++ ")" ++ s ++ "^ca()"
+dzenSwitchWs s = "^ca(1,switch-workspace.zsh " ++ (show s) ++ ")" ++ s ++ "^ca()"
 
 myTheme :: Theme
 myTheme = defaultTheme

@@ -1,104 +1,74 @@
-#!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
-require "rubygems"
-require "eventmachine"
-require "popen4"
+#!/usr/bin/env zsh
 
-$fg = '#93a1a1'
-$bg = '#262626'
-$current_screen = 0
-$visible_workspaces = {}
-$dzen = IO.popen("dzen2 -fg '#{$fg}' -bg '#{$bg}' -ta l -e 'button3='", "w")
-$user_content = ""
-$xmonad_log = ""
-$screen_layout = []
+FG='#93a1a1'
+BG='#262626'
+USER_CONTENT_WIDTH=120
 
-`xrandr`.each_line { |e|
-  if e =~ /connected (\d+)x\d+([-+]\d+)/
-    $screen_layout << [$2.to_i, $1.to_i]
-  end
+zmodload zsh/zselect
+SCREEN_LAYOUT=($(xrandr | sed -r -n 's/.*connected ([0-9]+)x[0-9]+([-+][0-9]+).*/\2 \1/p' | sort -g))
+
+XMONAD_LOG=
+WORKSPACES=
+
+parse_log () {
+  local oifs="$IFS" fields
+
+  IFS=$'\0'
+  if ! read -t 0 -A WORKSPACES; then
+    exit 0
+  fi
+
+  XMONAD_LOG=$WORKSPACES[1]
+  shift WORKSPACES
+
+  if [ "${#WORKSPACES[@]}" -eq 0 ]; then
+    WORKSPACES=("0")
+  fi
+
+  IFS="$oifs"
 }
-$screen_layout.sort!
 
-def parse_workspaces(workspaces)
-  $current_screen = 0
-  $visible_workspaces = {}
+refresh () {
+  local oifs="$IFS" current=1 content offset width
 
-  begin
-    $current_screen = workspaces.shift.to_i
-    workspaces.each do |w|
-      id, tag = w.split(".", 2)
-      $visible_workspaces[id.to_i] = tag
-    end
-  rescue
-    $current_screen = 0
-    $visible_workspaces = {}
-  end
-end
+  IFS=.
+  for workspace in "${WORKSPACES[@]}"; do
+    read id name <<<"$workspace"
+    offset=$SCREEN_LAYOUT[$((id * 2 + 1))]
+    width=$SCREEN_LAYOUT[$((id * 2 + 2))]
 
-def parse_log(log)
-  $xmonad_log, *workspaces = log.split("\0")
-  parse_workspaces(workspaces)
-end
+    if [ -n "$current" ]; then
+      echo -n "^pa($offset)${XMONAD_LOG}^pa($((offset+width-USER_CONTENT_WIDTH)))^fg($FG)$USER_CONTENT^fg()"
+    else
+      echo -n "^pa($offset)^fg(#268bd2)^bg(#073642) ${name} ^fg()^bg()^pa($((offset+width-USER_CONTENT_WIDTH)))^fg($FG)$USER_CONTENT^fg()"
+    fi
 
-def update_user_content
-  $user_content.clear
-  $user_content << Time.now.strftime("^ca(1,gsimplecal)%a %b %d, %H:%M^ca()")
-end
+    current=
+  done
+  echo
 
-USER_CONTENT_WIDTH = 120
+  IFS="$oifs"
+}
 
-def refresh
-  content = ""
-  # current screen
-  offset, width = $screen_layout[$current_screen]
-  content << "^pa(#{offset})#{$xmonad_log}^pa(#{offset+width-USER_CONTENT_WIDTH})^fg(#{$fg})#{$user_content}^fg()"
+user_content() {
+  date +"^ca(1,gsimplecal)%a %b %d, %H:%M:%S^ca()"  
+}
 
-  $visible_workspaces.each_pair { |screen, tag|
-    offset, width = $screen_layout[screen]
-    content << "^pa(#{offset})^fg(#268bd2)^bg(#073642) #{tag} ^fg()^bg()^pa(#{offset+width-USER_CONTENT_WIDTH})^fg(#{$fg})#{$user_content}^fg()"
-  }
+typeset -i LAST_TIME=0
+update_user_content () {
+  local -i now=$(date +"%s")
+  if ((now - LAST_TIME > 1)); then
+    USER_CONTENT=$(user_content)
+    LAST_TIME=now
+  fi
+}
 
-  $dzen.puts content if $dzen
-end
-
-module PanelContentPipeline
-  def notify_readable
-    readline_and_refresh
-  rescue EOFError
-    detach
-  end
-
-  def unbind
-    EM.stop_event_loop
-  end
-
-  private
-  def readline_and_refresh
-    parse_log(@io.readline.chomp)
-    refresh
-  end
-end
-
-# Ctrl-C
-Signal.trap 'INT' do
-  EM.stop_event_loop
-  $dzen.close if $dzen
-  $dzen = nil
-end
-
-EM.run {
-  update_user_content
-  conn = EM.watch $stdin, PanelContentPipeline
-  conn.notify_readable = true
-
-  EM.add_periodic_timer(60) do
+update_user_content
+while true; do
+  refresh
+  if zselect -t 6000 -A fd -r 0; then
+    parse_log
+  else
     update_user_content
-    refresh
-  end
-}
-
-at_exit do
-  $dzen.close if $dzen
-  $dzen = nil
-end
+  fi
+done > >(dzen2 -fg "$FG" -bg "$BG" -ta l -e 'button3=')
