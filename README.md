@@ -96,6 +96,8 @@ Or compile source after applying
 
 -   `xscreensaver`: screen saver
 
+-   `gmrun`: Launcher for `M-<Enter>`.
+
 ## Install ##
 
 -   Add path to `bin` to `PATH`.
