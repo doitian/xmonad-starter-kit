@@ -82,6 +82,8 @@ getSortByIndex' = mkWsSort getWsCompare'
 -- xdotool, wmctrl
 
 myTerminal      = "urxvt"
+-- window class, use `M-c i` to inspect the window class name
+myTerminalClass = "URxvt"
 myBorderWidth   = 2
 myModMask       = mod4Mask
 
@@ -169,9 +171,10 @@ myTheme = defaultTheme
           , urgentTextColor = "#dc322f"
           }
 
--- replace className and the command to use other term.
--- `urxvt -name scratchpad` only to not use tmux
-pads = [ NS "term" "urxvt -name scratchpad -e sh -l -c 'tmux has -t quake && tmux attach -t quake || tmux new -s quake'" (resource =? "scratchpad" <&&> className =? "URxvt") (customFloating $ W.RationalRect 0.2 0.6 0.6 0.4)
+pads = [ NS "term"
+         (myTerminal ++ " -name scratchpad")
+         (resource =? "scratchpad" <&&> className =? myTerminalClass)
+         (customFloating $ W.RationalRect 0.2 0.6 0.6 0.4)
        ]
 
 -- unused char
@@ -196,9 +199,9 @@ myKeys =  \conf -> mkKeymap conf $
     -- app
     , ("M-o", runOrRaiseNext "firefox" (className =? "Firefox" <||> className =? "Google-chrome" <||> className =? "Chromium")) -- browser
     , ("M-i", runOrRaiseNext "emacs-dwim" (className =? "Emacs")) --emacs
-    , ("M-u", runOrRaiseNext "urxvt" (className =? "URxvt" <&&> resource /=? "scratchpad")) -- raise next terminal
+    , ("M-u", runOrRaiseNext myTerminal (className =? myTerminalClass <&&> resource /=? "scratchpad")) -- raise next terminal
 
-    , ("M-c t", raiseNextMaybe (spawn "urxvt -name htop -e htop") (resource =? "htop")) -- Top
+    , ("M-c t", raiseNextMaybe (spawn $ myTerminal ++ " -name htop -e htop") (resource =? "htop")) -- Top
     , ("M-c r", raiseNextMaybe (spawn "pcmanfm") (resource =? "pcmanfm")) -- File Browser
     , ("M-c h", spawn "xmonad-key.sh") -- Help
     , ("M-c i", spawn "xp") -- Window Info

@@ -82,9 +82,10 @@ Or compile source after applying
 -   `gsimplecal`: calendar widget
 -   `gpicker`: goto/bring window
 
-### Other Tools ###
+### Other Optional Tools ###
 
--   `urxvt`: terminal
+-   `urxvt`: terminal, update `myTerminal` and `myTerminalClass` in xmonad.hs
+    to use other terminals.
 
 -   `pcmanfm`: lightweight file browser, Arch can install `pcmanfm-mod`:
 
