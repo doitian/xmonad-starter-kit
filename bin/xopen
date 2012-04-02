@@ -1,0 +1,32 @@
+#!/bin/bash
+UNAME=`uname -s`
+if [ "$UNAME" = "Darwin" ]; then
+    exec open "$@"
+fi
+
+fm=pcmanfm
+ff=google-chrome
+
+exec > /dev/null 2>&1
+
+if [ -z "$1" ]; then
+  $fm &
+fi
+
+for arg; do
+  if [ "$arg" = '-' ]; then
+    arg=$(xclip -o)
+  fi
+
+  if [ -z "$arg" -o -d "$arg" ]; then
+    $fm "$arg" &
+  elif [ -f "$arg" ]; then
+    xdg-open "$arg"
+  elif grep -q '^http' <<<"$arg"; then
+    $ff "$arg" &
+  elif grep -q '\b[-_[:alnum:]]\+\.[-_[:alnum:]./?&@#]*[-_[:alnum:]/]' <<<"$arg"; then
+    $ff "$arg" &
+  else
+    $ff "http://www.google.com/search?q=$arg" &
+  fi
+done

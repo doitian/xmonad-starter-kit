@@ -1,0 +1,9 @@
+#!/bin/sh
+
+WM_INFO=$(xprop | sed -n \
+    -e 's/^WM_NAME(STRING) = "\(.*\)"$/Title: \1/p' \
+    -e 's/^WM_CLASS(STRING) = "\(.*\)", "\(.*\)"$/Resource: \1\nClass: \2/p' \
+    -e 's/^WM_WINDOW_ROLE(STRING) = "\(.*\)"$/Role: \1/p')
+
+zenity --info --title="Window Properties" --text="$WM_INFO"
+

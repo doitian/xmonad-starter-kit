@@ -1,0 +1,50 @@
+#!/bin/bash
+if [ -z "$HOSTNAME" ]; then
+    HOSTNAME=`hostname`
+fi
+if [ -z "$UID" ]; then
+    UID=`id -u`
+fi
+
+##################################################
+# Functions
+#####
+run_daemon () {
+    if which "$1" > /dev/null 2>&1; then
+        app=`basename $1`
+        pgrep "$app" > /dev/null && pkill "$app" && sleep 3
+        "$@" &
+        return 0
+    fi
+
+    return 1
+}
+
+# uncomment it to use trayer
+#run_daemon trayer --edge right --widthtype request --transparent true --SetDockType true --SetPartialStrut true
+
+# LC_ALL= LC_CTYPE=zh_CN.UTF-8 run_daemon emacs --daemon
+run_daemon xscreensaver -no-splash
+#run_daemon parcellite
+run_daemon clipit
+run_daemon fcitx
+
+if [ -z "$NO_IM" ]; then
+  : # run_daemon pidgin
+fi
+
+if which dropbox > /dev/null 2>&1; then
+    (
+        sleep 5
+        dropbox stop
+        dropbox start
+        sleep 30
+        if dropbox status | grep -q '^Connecting'; then
+            dropbox stop
+            dropbox start
+        fi
+    ) &
+fi
+
+env | grep '^DBUS_SESSION_BUS_ADDRESS=\|^XAUTHORITY=\|^SSH_AUTH_SOCK=' > ~/.xenv
+echo "export DBUS_SESSION_BUS_ADDRESS XAUTHORITY SSH_AUTH_SOCK" >> ~/.xenv

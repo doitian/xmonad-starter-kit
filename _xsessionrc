@@ -1,0 +1,27 @@
+# vim: ft=sh
+if [ -z "$HOSTNAME" ]; then
+    HOSTNAME=`hostname`
+fi
+if [ -z "$UID" ]; then
+    UID=`id -u`
+fi
+
+##################################################
+# Environement
+#####
+for f in ~/.zshenv ~/.xsessionrc.$HOSTNAME; do
+  [ -f "$f" ] && source "$f"
+done
+
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+[ -f ~/.xmodmap ] && xmodmap ~/.xmodmap
+[ -f ~/.Xresources.$HOSTNAME ] && xrdb -merge ~/.Xresources.$HOSTNAME
+xsetroot -cursor_name left_ptr
+[ -f /usr/bin/nitrogen ] && nitrogen --restore
+
+export OOO_FORCE_DESKTOP=gnome
+export JAVA_FONTS=/usr/share/fonts/TTF
+export GDFONTPATH=/usr/share/fonts/TTF
+export GDK_NATIVE_WINDOWS=1
+export GDK_USE_XFT=1
+export GNOME_DESKTOP_SESSION_ID=Default

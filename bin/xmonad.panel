@@ -1,0 +1,104 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+require "rubygems"
+require "eventmachine"
+require "popen4"
+
+$fg = '#93a1a1'
+$bg = '#262626'
+$current_screen = 0
+$visible_workspaces = {}
+$dzen = IO.popen("dzen2 -fg '#{$fg}' -bg '#{$bg}' -ta l -e 'button3='", "w")
+$user_content = ""
+$xmonad_log = ""
+$screen_layout = []
+
+`xrandr`.each_line { |e|
+  if e =~ /connected (\d+)x\d+([-+]\d+)/
+    $screen_layout << [$2.to_i, $1.to_i]
+  end
+}
+$screen_layout.sort!
+
+def parse_workspaces(workspaces)
+  $current_screen = 0
+  $visible_workspaces = {}
+
+  begin
+    $current_screen = workspaces.shift.to_i
+    workspaces.each do |w|
+      id, tag = w.split(".", 2)
+      $visible_workspaces[id.to_i] = tag
+    end
+  rescue
+    $current_screen = 0
+    $visible_workspaces = {}
+  end
+end
+
+def parse_log(log)
+  $xmonad_log, *workspaces = log.split("\0")
+  parse_workspaces(workspaces)
+end
+
+def update_user_content
+  $user_content.clear
+  $user_content << Time.now.strftime("^ca(1,gsimplecal)%a %b %d, %H:%M^ca()")
+end
+
+USER_CONTENT_WIDTH = 120
+
+def refresh
+  content = ""
+  # current screen
+  offset, width = $screen_layout[$current_screen]
+  content << "^pa(#{offset})#{$xmonad_log}^pa(#{offset+width-USER_CONTENT_WIDTH})^fg(#{$fg})#{$user_content}^fg()"
+
+  $visible_workspaces.each_pair { |screen, tag|
+    offset, width = $screen_layout[screen]
+    content << "^pa(#{offset})^fg(#268bd2)^bg(#073642) #{tag} ^fg()^bg()^pa(#{offset+width-USER_CONTENT_WIDTH})^fg(#{$fg})#{$user_content}^fg()"
+  }
+
+  $dzen.puts content if $dzen
+end
+
+module PanelContentPipeline
+  def notify_readable
+    readline_and_refresh
+  rescue EOFError
+    detach
+  end
+
+  def unbind
+    EM.stop_event_loop
+  end
+
+  private
+  def readline_and_refresh
+    parse_log(@io.readline.chomp)
+    refresh
+  end
+end
+
+# Ctrl-C
+Signal.trap 'INT' do
+  EM.stop_event_loop
+  $dzen.close if $dzen
+  $dzen = nil
+end
+
+EM.run {
+  update_user_content
+  conn = EM.watch $stdin, PanelContentPipeline
+  conn.notify_readable = true
+
+  EM.add_periodic_timer(60) do
+    update_user_content
+    refresh
+  end
+}
+
+at_exit do
+  $dzen.close if $dzen
+  $dzen = nil
+end

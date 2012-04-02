@@ -1,0 +1,134 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Global
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!*background: #002b36
+!!*foreground: #657b83
+!!*fading: 40
+!!*fadeColor: #002b36
+!!*cursorColor: #93a1a1
+!!*pointerColorBackground: #586e75
+!!*pointerColorForeground: #93a1a1
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Emacs
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Emacs*FontBackend: xft
+Emacs*font: Inconsolata:pixelsize=20
+Emacs*menuBar: off
+Emacs*toolBar: 0
+Emacs*verticalScrollBars: off
+Emacs*foreground: #839496
+Emacs*background: #002b36
+Emacs*borderColor: #839496
+Emacs*cursorColor: #839496
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! XTerm
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+XTerm*Title: XTerm
+XTerm*scrollBar: false
+XTerm*saveLines: 5000
+XTerm*font: -xos4-terminus-medium-r-normal--16-*
+xterm*internalBorder:        0
+xterm*scrollBar:         false
+xterm*cursorBlink:       false
+xterm*saveLines:         65535
+xterm*dynamicColors:        on
+XTerm*highlightSelection: true
+XTerm*eightBitInput: true
+
+XTerm*cursorColor: #93a1a1
+XTerm*pointerColorBackground: #586e75
+XTerm*pointerColorForeground: #93a1a1
+XTerm*background:  #002b36
+XTerm*foreground:  #657b83
+
+XTerm*color0: #073642
+XTerm*color8: #002b36
+XTerm*color1: #dc322f
+XTerm*color9: #cb4b16
+XTerm*color2: #859900
+XTerm*color10: #586e75
+XTerm*color3: #b58900
+XTerm*color11: #657b83
+XTerm*color4: #268bd2
+XTerm*color12: #839496
+XTerm*color5: #d33682
+XTerm*color13: #6c71c4
+XTerm*color6: #2aa198
+XTerm*color14: #93a1a1
+XTerm*color7: #eee8d5
+XTerm*color15: #fdf6e3
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! URxvt
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+URxvt*termName: rxvt-unicode-256color
+
+URxvt*saveLines:32767
+URxvt*scrollBar: false
+URxvt*secondaryScreen: true
+URxvt*secondaryScroll: true
+URxvt*urgentOnBell: true
+
+URxvt.font:xft:Terminus-12,xft:WenQuanYi Micro Hei Mono-12
+URxvt.boldFont:xft:Terminus-12:Bold,xft:WenQuanYi Micro Hei Mono-12:Bold
+scratchpad.font:xft:Terminus-10,xft:WenQuanYi Micro Hei Mono-10
+scratchpad.boldFont:xft:Terminus-10:Bold,xft:WenQuanYi Micro Hei Mono-10:Bold
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+URxvt*perl-ext-common:  default,matcher,-searchable-scrollback
+URxvt*matcher.button:   1
+URxvt*urlLauncher: x-www-browser
+URxvt*iconFile: /usr/share/icons/Tango/32x32/apps/gnome-terminal.png
+URxvt*matcher.pattern.1:  \\B(/\\S+?):(\\d+)(?=:|$)
+URxvt*matcher.launcher.1: emacs-dwim +$2 $1
+
+! Color section
+URxvt*background:  #3F3F3F
+URxvt*foreground:  #DCDCCC
+URxvt*cursorColor: #F0DFAF
+!URxvt*pointerColorBackground: #586e75
+!URxvt*pointerColorForeground: #93a1a1
+!URxvt*colorUL: #2aa198
+!URxvt*colorBD: #cb4b16
+!!URxvt*fading: 10
+!!URxvt*fadeColor: #002b36
+!! URxvt*tint: 35
+
+URxvt*color0: #1E2320
+URxvt*color8: #709080
+URxvt*color1: #705050
+URxvt*color10: #C3BF9F
+URxvt*color11: #F0DFAF
+URxvt*color12: #94BFF3
+URxvt*color13: #EC93D3
+URxvt*color14: #93E0E3
+URxvt*color15: #FFFFFF
+URxvt*color2: #60B48A
+URxvt*color3: #DFAF8F
+URxvt*color4: #506070
+URxvt*color5: #DC8CC3
+URxvt*color6: #8CD0D3
+URxvt*color7: #DCDCCC
+URxvt*color9: #DCA3A3
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Misc
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+xpdf*foreground:     #111111
+xpdf*background:     #FCFCFC
+xpdf*urlCommand:     firefox %s
+xpdf*antialias:      yes
+xpdf*enableFreetype: yes
+
+!set in fontconfig
+!Xft.antialias: -1
+!Xft.hinting: -1
+!Xft.rgba: none
+!Xft.hintstyle: hintnone
+
+dzen2.font:       WenQuanYi Micro Hei-10
+dzen2.foreground: #acbc90
+dzen2.background: #1e2320
