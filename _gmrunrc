@@ -1,0 +1,29 @@
+#Terminal = gnome-terminal --start-factory-server --use-factory
+Terminal = urxvt
+TermExec = ${Terminal} -e
+AlwaysInTerm = ssh telnet ftp lynx mc vi vim mc top watch htop lftp
+
+Width = 400
+Top = 20
+Left = 5
+
+History = 256
+ShowLast = 1
+TabTimeout = 0
+ShowDotFiles = 0
+TabTimeout = 0
+
+URL_http = mozilla -remote "openURL(%u, new-window)"
+URL_mailto = mozilla -remote "mailto(%s)"
+URL_man = ${TermExec} 'man %s'
+URL_info = ${TermExec} 'info %s'
+URL_pd = ${TermExec} 'perldoc %s'
+URL_file = thunar %s
+URL_readme = ${TermExec} 'less /usr/share/doc/%s/README'
+URL_info = ${TermExec} 'info %s'
+URL_sh = sh -c '%s'
+
+EXT:txt,cc,cpp,h,java,html,htm,epl,tex,latex,js,css,xml,xsl,am = emacsclient %s
+EXT:doc = oowriter %s
+EXT:ppt = ooimpress %s
+EXT:pdf = xpdf %s
