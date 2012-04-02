@@ -109,7 +109,7 @@ For `startx` and `slim`, edit and copy/link files starting with underscore to ho
     _xsessionrc -> ~/.xsessionrc
 
 -   See `_xsessionrc` about how to setup multiple displays using `xrandr`.
--   Add auto start applications in `bin/xmonad.autostart`
+-   Add auto start applications in `bin/xmonad.autostart`, such as starting `trayer`.
 
 TODO: How to start session in other session manager? I'm not sure whether
 `~/.xsession` really works for xdm/gdm/kdm.

@@ -20,8 +20,7 @@ run_daemon () {
     return 1
 }
 
-# uncomment it to use trayer
-#run_daemon trayer --edge right --widthtype request --transparent true --SetDockType true --SetPartialStrut true
+run_daemon trayer --edge right --widthtype request --transparent true --SetDockType true --SetPartialStrut true
 
 # LC_ALL= LC_CTYPE=zh_CN.UTF-8 run_daemon emacs --daemon
 run_daemon xscreensaver -no-splash
