@@ -51,13 +51,13 @@ refresh () {
 }
 
 user_content() {
-  date +"^ca(1,gsimplecal)%a %b %d, %H:%M:%S^ca()"  
+  date +"^ca(1,gsimplecal)%a %b %d, %H:%M^ca()"
 }
 
 typeset -i LAST_TIME=0
 update_user_content () {
   local -i now=$(date +"%s")
-  if ((now - LAST_TIME > 1)); then
+  if ((now - LAST_TIME > 60)); then
     USER_CONTENT=$(user_content)
     LAST_TIME=now
   fi
