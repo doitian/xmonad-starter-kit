@@ -81,6 +81,8 @@ Or compile source after applying
 -   `wmctrl`: switch layouts using mouse
 -   `gsimplecal`: calendar widget
 -   `gpicker`: goto/bring window
+-   font WenQuanYi MicroHei, or replace `myFont` and `myMonoFont` in
+    `xmonad.hs`.
 
 ### Other Optional Tools ###
 
@@ -102,7 +104,6 @@ Or compile source after applying
 
 -   Add path to `bin` to `PATH`.
 -   Copy or link xmonad.hs to `~/.xmonad/xmonad.hs`.
--   Merge dzen2 default theme in `_Xresources` to your `~/.Xresources`.
 
 For `startx` and `slim`, edit and copy/link files starting with underscore to home directory:
 

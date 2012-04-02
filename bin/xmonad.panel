@@ -63,7 +63,7 @@ update_user_content () {
   fi
 }
 
-[ -z "$DEBUG" ] && exec > >(dzen2 -fg "$FG" -bg "$BG" -ta l -e 'button3=')
+[ -z "$DEBUG" ] && exec > >(dzen2 -fg "$FG" -bg "$BG" -ta l -e 'button3=' "$@")
 while true; do
   update_user_content
   refresh
