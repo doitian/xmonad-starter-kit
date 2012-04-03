@@ -15,6 +15,7 @@
     -   `M-C-S-<Backspace>`: delete current workspace if it is empty
 
 -   Shortcuts help extracted from source: `M-c h`
+-   Urgency window notification through libnotify 
 -   Switch workspace and toggle layouts using mouse.
 -   Select layout by prompt: `M-S-\`
 -   Multi toggle:
@@ -24,6 +25,7 @@
     -   `M-d`: zoom in active window
     -   `M-s`: Make master window as sidebar. `M-S-:` can promote a window as
         master window.
+
 -   Carefully configured layouts:
 
     -   `cols`: number of windows in each column can be changed using
@@ -44,7 +46,7 @@
           xscreensaver gmrun xdotool wmctrl \
           gsimplecal gpicker \
           wqy-microhei-nightly_build \
-          trayer
+          trayer libnotify
 
 -   Add path to `bin` to `PATH`.
 -   Copy or link xmonad.hs to `~/.xmonad/xmonad.hs`.
@@ -107,6 +109,8 @@ Or compile source after applying
 
 -   `urxvt`: terminal, update `myTerminal` and `myTerminalClass` in xmonad.hs
     to use other terminals.
+
+-   `libnotify`: urgency notification
 
 -   `pcmanfm`: lightweight file browser, Arch can install `pcmanfm-mod`:
 
