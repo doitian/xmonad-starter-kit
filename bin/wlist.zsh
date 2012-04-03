@@ -23,9 +23,9 @@ while read id workspace_id resource_class host title; do
       echo -en '\0'
     fi
     echo -n "${id}/"
-    echo -n "${title}" | sed 's/\// /g'
-    echo -n '/'
     echo -n "${workspace}" | sed 's/\// /g'
+    echo -n '/'
+    echo -n "${win_class} ${title}" | sed 's/\// /g'
     first=
   fi
 done < <(wmctrl -x -l)

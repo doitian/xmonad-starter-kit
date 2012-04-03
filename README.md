@@ -36,6 +36,9 @@
     -   `grid`
     -   `big`: the master window occupy most space.
 
+-   `M-g`, `M-b`
+    [switch window using fuzzy matching](http://blog.iany.me/2010/08/switch-window-using-fuzz-matching/)
+
 ## Install ##
 
 -   See prerequisites and optional tools below. For Arch Linuxer:
