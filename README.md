@@ -49,7 +49,8 @@
 -   Add path to `bin` to `PATH`.
 -   Copy or link xmonad.hs to `~/.xmonad/xmonad.hs`.
 
-For `startx` and `slim`, edit and copy/link files starting with underscore to home directory:
+For `startx` and `slim`, copy or link following files to home directory
+(backup your own first):
 
     _xinitrc -> ~/.xinitrc
     _xsession -> ~/.xsession
