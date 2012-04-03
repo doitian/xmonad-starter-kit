@@ -34,6 +34,33 @@
     -   `grid`
     -   `big`: the master window occupy most space.
 
+## Install ##
+
+-   See prerequisites and optional tools below. For Arch Linuxer:
+
+        yaourt -S ghc xmonad xmonad-contrib \
+          zsh dzen2-xft-xpm-xinerama-svn dmenu-xft \
+          rxvt-unicode pcmanfm-mod scrot nitrogen \
+          xscreensaver gmrun xdotool wmctrl \
+          gsimplecal gpicker \
+          wqy-microhei-nightly_build \
+          trayer
+
+-   Add path to `bin` to `PATH`.
+-   Copy or link xmonad.hs to `~/.xmonad/xmonad.hs`.
+
+For `startx` and `slim`, edit and copy/link files starting with underscore to home directory:
+
+    _xinitrc -> ~/.xinitrc
+    _xsession -> ~/.xsession
+    _xsessionrc -> ~/.xsessionrc
+
+-   See `_xsessionrc` about how to setup multiple displays using `xrandr`.
+-   Add auto start applications in `bin/xmonad.autostart`, such as starting `trayer`.
+
+TODO: How to start session in other session manager? I'm not sure whether
+`~/.xsession` really works for xdm/gdm/kdm.
+
 ## Prerequisites ##
 
 ### XMonad ###
@@ -75,16 +102,7 @@ Version 4.5 with xft patch. Arch Linuxer can install `dmenu-xft`.
 Or compile source after applying
 [dmenu-4.5-xft.diff](http://darkstar.ist.utl.pt/slackware/addon/slacky/slackware64-13.37/desktop/dmenu-xft/4.5/src/dmenu-4.5-xft.diff)
 
-#### optional ####
-
--   `xdotool`: switch layouts using mouse
--   `wmctrl`: switch layouts using mouse
--   `gsimplecal`: calendar widget
--   `gpicker`: goto/bring window
--   font WenQuanYi MicroHei, or replace `myFont` and `myMonoFont` in
-    `xmonad.hs`.
-
-### Other Optional Tools ###
+## Optional Tools ##
 
 -   `urxvt`: terminal, update `myTerminal` and `myTerminalClass` in xmonad.hs
     to use other terminals.
@@ -96,23 +114,18 @@ Or compile source after applying
 -   `scrot`: snapshot of whole screen `M-<PrintScreen>`, snapshot of
     selection: `M-C-<PrintScreen>`.
 
+-   `nitrogen`: set desktop background image.
+
 -   `xscreensaver`: screen saver
 
 -   `gmrun`: Launcher for `M-<Enter>`.
 
-## Install ##
+-   `xdotool`: switch layouts using mouse
+-   `wmctrl`: switch layouts using mouse
+-   `gsimplecal`: calendar widget
+-   `gpicker`: goto/bring window
 
--   Add path to `bin` to `PATH`.
--   Copy or link xmonad.hs to `~/.xmonad/xmonad.hs`.
+-   font WenQuanYi MicroHei (for Chinese), or replace `myFont` and `myMonoFont` in
+    `xmonad.hs`.
 
-For `startx` and `slim`, edit and copy/link files starting with underscore to home directory:
-
-    _xinitrc -> ~/.xinitrc
-    _xsession -> ~/.xsession
-    _xsessionrc -> ~/.xsessionrc
-
--   See `_xsessionrc` about how to setup multiple displays using `xrandr`.
--   Add auto start applications in `bin/xmonad.autostart`, such as starting `trayer`.
-
-TODO: How to start session in other session manager? I'm not sure whether
-`~/.xsession` really works for xdm/gdm/kdm.
+-   `trayer`: trayer for daemon icons
